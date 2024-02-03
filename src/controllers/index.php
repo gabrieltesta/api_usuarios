@@ -1,20 +1,16 @@
 <?php
 namespace Src\controllers;
+
 require "../../start.php";
 
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+emitirHeaders();
 
+// Roteamento das controllers
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode( '/', $uri );
 
-print_r($uri);
-
+$_POST = json_decode(file_get_contents("php://input"), true);
 $entityId = ($uri[3] ?? null);
-$controller = null;
 
 switch($uri[2]) {
     case 'users':
@@ -24,7 +20,7 @@ switch($uri[2]) {
             exit();
         }
 
-        $controller = new UserController($_SERVER['REQUEST_METHOD'], $entityId);
+        new UserController($_SERVER['REQUEST_METHOD'], $entityId);
         break;
     default:
         header("HTTP/1.1 404 Not Found");
