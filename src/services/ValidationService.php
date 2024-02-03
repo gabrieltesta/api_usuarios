@@ -79,6 +79,12 @@ class ValidationService
                     return true;
                 else
                     return "Campo {$field} requer exatamente {$param} caracteres.";
+            case 'enum':
+                $enum = explode(',', $param);
+                if(!isset($data[$field]) || in_array($data[$field], $enum))
+                    return true;
+                else
+                    return "Campo {$field} requer um valor da lista: \"{$param}\"";
             default:
                 return "Campo {$field} requer uma regra {$rule} não implementada.";
         }

@@ -63,7 +63,7 @@ class UserController extends BaseController implements APIControllerInterface
             'name' => ['required'],
             'email' => ['required', 'email'],
             'phone' => ['required'],
-            'gender' => ['required', ['length' => 1]],
+            'gender' => ['required', ['length' => 1], ['enum' => 'M,F,O']],
             'password' => ['required']
         ]))
             return $this->responseAsJson(422, 'Erro na validação dos dados enviados', $this->validation->getErrors());
@@ -89,7 +89,7 @@ class UserController extends BaseController implements APIControllerInterface
     {
         if(!$this->validation->validate($_POST, [
             'email' => ['email'],
-            'gender' => [['length' => 1]]
+            'gender' => [['length' => 1], ['enum' => 'M,F,O']]
         ]))
             return $this->responseAsJson(422, 'Erro na validação dos dados enviados', $this->validation->getErrors());
 
