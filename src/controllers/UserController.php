@@ -6,15 +6,18 @@ use Src\Database;
 use Src\models\BaseModel;
 use Src\models\User;
 use Src\repositories\UserRepository;
+use Src\services\ValidationService;
 
 class UserController extends BaseController implements APIControllerInterface
 {
     protected UserRepository $repository;
+    protected ValidationService $validation;
 
     public function __construct(string $method = 'GET', ?int $entityId = null)
     {
         $db = (new Database())->getConexao();
         $this->repository = new UserRepository($db);
+        $this->validation = new ValidationService();
 
         $this->model = User::class;
 
@@ -48,9 +51,22 @@ class UserController extends BaseController implements APIControllerInterface
         $this->responseAsJson(200, '', $users);
     }
 
-    public function create(BaseModel $entity)
+    /**
+     * @link /users/ [POST]
+     *
+     * @param BaseModel $entity
+     * @return bool
+     */
+    public function create(BaseModel $entity): bool
     {
-        //TODO: Implementar serviço de validação
+        if(!$this->validation->validate($_POST, [
+            'name' => ['required'],
+            'email' => ['required', 'email'],
+            'phone' => ['required'],
+            'gender' => ['required', ['length' => 1]],
+            'password' => ['required']
+        ]))
+            return $this->responseAsJson(422, 'Erro na validação dos dados enviados', $this->validation->getErrors());
 
         $result = $this->repository->create($entity);
         if($result) {
@@ -59,6 +75,7 @@ class UserController extends BaseController implements APIControllerInterface
         } else
             $this->responseAsJson(422, 'Erro na validação dos dados enviados.');
 
+        return true;
     }
 
     public function update(int $id, BaseModel $entity)

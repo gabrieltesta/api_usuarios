@@ -21,7 +21,7 @@ class BaseController
         if($method === 'POST')
             $this->create((new $this->model())->getModelFromArray($_POST));
         elseif($method === 'PUT')
-            $this->update($entityId, new \stdClass());
+            $this->update($entityId, (new $this->model())->getModelFromArray($_POST));
         elseif($method === 'DELETE')
             $this->delete($entityId);
         elseif($method === 'GET') {
@@ -41,7 +41,7 @@ class BaseController
      * @param array $body
      * @return void
      */
-    public function responseAsJson(int $httpCode = 200, string $message = '', array $body = []) {
+    public function responseAsJson(int $httpCode = 200, string $message = '', array $body = []): bool {
         http_response_code($httpCode);
 
         $response = [
