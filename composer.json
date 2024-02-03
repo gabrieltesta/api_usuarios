@@ -1,12 +1,12 @@
 {
-  "name": "api_usuariosp/src",
+  "name": "api_usuarios/src",
   "description": "description",
   "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [
     {
       "name": "Gabriel Testa",
-      "email": "gabrielaugustotesta@gmail.com"
+      "email": "gabrielaugustotesta@gmail.com",
     }
   ],
   "require": {
