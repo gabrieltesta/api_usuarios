@@ -66,9 +66,9 @@ class ValidationService
     /**
      * Valida campos com regra com parametrização
      *
-     * @param $data
-     * @param $field
-     * @param $rule
+     * @param array $data
+     * @param string $field
+     * @param string $rule
      * @param $param
      * @return string|true
      */

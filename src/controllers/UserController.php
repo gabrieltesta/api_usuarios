@@ -83,8 +83,18 @@ class UserController extends BaseController implements APIControllerInterface
         // TODO: Implement update() method.
     }
 
+    /**
+     * @link /users/{id} [DELETE]
+     *
+     * @param int $id
+     * @return void
+     */
     public function delete(int $id)
     {
-        // TODO: Implement delete() method.
+        $result = $this->repository->delete($id);
+        if($result)
+            $this->responseAsJson(200, 'Usuário excluído com sucesso.');
+        else
+            $this->responseAsJson(500, 'Houve um erro inesperado. Tente novamente.');
     }
 }

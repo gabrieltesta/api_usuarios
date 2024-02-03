@@ -14,12 +14,6 @@ $entityId = ($uri[3] ?? null);
 
 switch($uri[2]) {
     case 'users':
-    case 'user':
-        if($uri[2] === 'users' && $_SERVER['REQUEST_METHOD'] !== 'GET') {
-            header("HTTP/1.1 404 Not Found");
-            exit();
-        }
-
         new UserController($_SERVER['REQUEST_METHOD'], $entityId);
         break;
     default:

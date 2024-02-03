@@ -121,8 +121,13 @@ class UserRepository extends BaseRepository implements BaseRepositoryInterface
         // TODO: Implement update() method.
     }
 
-    public function delete(BaseModel $object)
+    public function delete(int $id): bool
     {
-        // TODO: Implement delete() method.
+        $sql = $this->buildSQLDelete($this->baseTable, ['id' => '= :id']);
+
+        $rs = $this->db->prepare($sql);
+        $rs->bindParam(':id', $id, PDO::PARAM_INT);
+
+        return $rs->execute();
     }
 }

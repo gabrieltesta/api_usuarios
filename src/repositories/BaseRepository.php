@@ -69,4 +69,15 @@ class BaseRepository
         $sql .= ");";
         return $sql;
     }
+
+    protected function buildSQLDelete(string $table, array $where): string
+    {
+        $sql = "DELETE FROM {$table} WHERE 1=1 ";
+
+        foreach($where as $firstCondition => $secondCondition)
+            $sql .= "AND {$firstCondition} {$secondCondition} ";
+
+        $sql .= ";";
+        return $sql;
+    }
 }

@@ -16,5 +16,5 @@ interface BaseRepositoryInterface
 
     public function update(BaseModel $object);
 
-    public function delete(BaseModel $object);
+    public function delete(int $id);
 }
