@@ -73,14 +73,33 @@ class UserController extends BaseController implements APIControllerInterface
             $entity->setId($result);
             $this->responseAsJson(201, 'Usuário criado com sucesso.', $entity->serialize());
         } else
-            $this->responseAsJson(422, 'Erro na validação dos dados enviados.');
+            $this->responseAsJson(500, 'Houve um erro inesperado. Tente novamente.');
 
         return true;
     }
 
-    public function update(int $id, BaseModel $entity)
+    /**
+     * @link /users/{id} [PUT]
+     *
+     * @param int $id
+     * @param BaseModel $entity
+     * @return bool
+     */
+    public function update(int $id, BaseModel $entity): bool
     {
-        // TODO: Implement update() method.
+        if(!$this->validation->validate($_POST, [
+            'email' => ['email'],
+            'gender' => [['length' => 1]]
+        ]))
+            return $this->responseAsJson(422, 'Erro na validação dos dados enviados', $this->validation->getErrors());
+
+        $result = $this->repository->update($id, $entity);
+        if($result)
+            $this->responseAsJson(200, 'Usuário atualizado com sucesso.');
+        else
+            $this->responseAsJson(500, 'Houve um erro inesperado. Tente novamente.');
+
+        return true;
     }
 
     /**

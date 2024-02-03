@@ -54,7 +54,7 @@ class ValidationService
                 else
                     return "Campo {$field} é obrigatório.";
             case 'email':
-                if(isset($data[$field]) && filter_var($data[$field], FILTER_VALIDATE_EMAIL))
+                if(!isset($data[$field]) || filter_var($data[$field], FILTER_VALIDATE_EMAIL))
                     return true;
                 else
                     return "Campo {$field} precisa ser um email válido.";
@@ -75,7 +75,7 @@ class ValidationService
     private function validateFieldWithParam(array $data, string $field, string $rule, $param) {
         switch($rule) {
             case 'length':
-                if(isset($data[$field]) && strlen(trim($data[$field])) === $param)
+                if(!isset($data[$field]) || strlen(trim($data[$field])) === $param)
                     return true;
                 else
                     return "Campo {$field} requer exatamente {$param} caracteres.";

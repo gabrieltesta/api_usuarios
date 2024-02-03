@@ -70,9 +70,35 @@ class BaseRepository
         return $sql;
     }
 
+    /**
+     * Retorna script DELETE de SQL.
+     *
+     * @param string $table
+     * @param array $where
+     * @return string
+     */
     protected function buildSQLDelete(string $table, array $where): string
     {
         $sql = "DELETE FROM {$table} WHERE 1=1 ";
+
+        foreach($where as $firstCondition => $secondCondition)
+            $sql .= "AND {$firstCondition} {$secondCondition} ";
+
+        $sql .= ";";
+        return $sql;
+    }
+
+    protected function buildSQLUpdate(string $table, array $data, array $where): string
+    {
+        if(!$data)
+            return '';
+
+        $sql = "UPDATE {$table} SET ";
+
+        foreach($data as $column => $value)
+            $sql .= "{$column} = \"{$value}\", ";
+
+        $sql = rtrim($sql, ', ')." WHERE 1=1 ";
 
         foreach($where as $firstCondition => $secondCondition)
             $sql .= "AND {$firstCondition} {$secondCondition} ";

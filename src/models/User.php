@@ -109,7 +109,8 @@ class User extends BaseModel
     public function getModelFromArray(array $user): User {
         foreach($this->fillable as $column) {
             if($column === 'password') {
-                $this->setPassword($user[$column]);
+                if(isset($user[$column]))
+                    $this->setPassword($user[$column]);
                 continue;
             }
 

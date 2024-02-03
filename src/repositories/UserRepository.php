@@ -116,9 +116,21 @@ class UserRepository extends BaseRepository implements BaseRepositoryInterface
 
     }
 
-    public function update(BaseModel $object)
+    public function update(int $id, BaseModel $object)
     {
-        // TODO: Implement update() method.
+        $user = $object->serialize();
+
+        $sql = $this->buildSQLUpdate($this->baseTable, $user, [
+            'id' => '= :id'
+        ]);
+
+        $rs = $this->db->prepare($sql);
+        $rs->bindParam(':id', $id, PDO::PARAM_INT);
+
+        if($rs->execute())
+            return true;
+
+        return false;
     }
 
     public function delete(int $id): bool
