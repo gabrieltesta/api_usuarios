@@ -2,6 +2,8 @@
 
 namespace Src\controllers;
 
+use Src\models\BaseModel;
+
 /**
  * Controller base
  *
@@ -9,7 +11,10 @@ namespace Src\controllers;
  */
 class BaseController
 {
-    protected $model;
+    protected string $model;
+    protected bool $renderView = false;
+
+
     /**
      * Faz o redirecionamento para o método apropriado dependendo do método HTTP utilizado
      *
@@ -18,20 +23,52 @@ class BaseController
      */
     public function __construct(string $method = 'GET', ?int $entityId = null)
     {
-        if($method === 'POST')
-            $this->create((new $this->model())->getModelFromArray($_POST));
-        elseif($method === 'PUT')
-            $this->update($entityId, (new $this->model())->getModelFromArray($_POST));
-        elseif($method === 'DELETE')
+        if(isset($_GET['view']))
+            $this->renderView = true;
+
+        if($method === 'POST') {
+            $model = new $this->model();
+            if(!empty($_POST))
+                $model->getModelFromArray($_POST);
+
+            $this->create($model);
+        } elseif($method === 'PUT') {
+            $model = new $this->model();
+            if(!empty($_POST))
+                $model->getModelFromArray($_POST);
+
+            $this->update($entityId, $model);
+        } elseif($method === 'DELETE')
             $this->delete($entityId);
         elseif($method === 'GET') {
-            if($entityId)
-                $this->get($entityId);
-            else
-                $this->getAll();
+            if($this->renderView) {
+                header("Content-Type: text/html; charset=UTF-8");
+
+                switch($GLOBALS['URL']) {
+                    case 'users':
+                        if($entityId)
+                            $this->view($entityId);
+                        else
+                            $this->index();
+                        break;
+                    case 'users_add':
+                        $this->add();
+                        break;
+                    case 'users_edit':
+                        $this->edit($entityId);
+                        break;
+                    case 'users_delete':
+                        $this->exclude($entityId);
+                        break;
+                }
+            } else {
+                if ($entityId)
+                    $this->get($entityId);
+                else
+                    $this->getAll();
+            }
         }
     }
-
 
     /**
      * Retorna um json padronizado para API, e encerra o processo.

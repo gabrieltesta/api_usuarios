@@ -39,11 +39,10 @@ class UserRepository extends BaseRepository implements BaseRepositoryInterface
 
         $users = [];
         foreach($rs as $result) {
+            unset($result['password']);
+
             $user = new User($result['id']);
-            $user->setName($result['name'])
-                ->setEmail($result['email'])
-                ->setPhone($result['phone'])
-                ->setGender($result['gender']);
+            $user->getModelFromArray($result);
 
             $users[] = $user->serialize();
         }
@@ -83,6 +82,8 @@ class UserRepository extends BaseRepository implements BaseRepositoryInterface
 
         if(!$result)
             return null;
+
+        unset($result['password']);
 
         $user->getModelFromArray($result);
 

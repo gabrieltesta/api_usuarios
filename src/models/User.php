@@ -9,7 +9,33 @@ class User extends BaseModel
     protected string $phone;
     protected string $gender = 'O';
     protected string $password;
-    protected array $fillable = ['id', 'name', 'email', 'phone', 'gender', 'password'];
+    protected ?string $created_at;
+    protected ?string $updated_at;
+    protected array $fillable = ['id', 'name', 'email', 'phone', 'gender', 'password', 'created_at', 'updated_at'];
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(?string $created_at): User
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?string
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?string $updated_at): User
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
 
 
     public function getId(): int

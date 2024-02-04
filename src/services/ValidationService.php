@@ -14,9 +14,16 @@ class ValidationService
      * @param array $rules
      * @return bool
      */
-    public function validate(array $data, array $rules = []): bool {
+    public function validate(?array $data, array $rules = []): bool {
         $this->errors = [];
         $validation = true;
+
+        if(!isset($data)) {
+            $this->errors[] = 'Corpo do request vazio';
+            $this->validation = false;
+            return $this->validation;
+        }
+
         foreach($rules as $field => $rule) {
             foreach($rule as $param) {
                 if(is_array($param)) {

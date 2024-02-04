@@ -11,8 +11,6 @@ use Src\Database;
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->safeLoad();
 
-$conexaoDB = (new Database())->getConexao();
-
 /**
  * Emite os headers necessários para funcionamento da API
  *

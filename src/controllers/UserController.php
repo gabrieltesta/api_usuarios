@@ -116,4 +116,50 @@ class UserController extends BaseController implements APIControllerInterface
         else
             $this->responseAsJson(500, 'Houve um erro inesperado. Tente novamente.');
     }
+
+
+    /**
+     * @link /users?view=1 [GET]
+     * @return void
+     */
+    public function index() {
+        require_once('../views/users.php');
+    }
+
+    /**
+     * @link /users/{id}?view=1 [GET]
+     *
+     * @param int $id
+     * @return void
+     */
+    public function view(int $id) {
+        require_once('../views/users_view.php');
+    }
+
+    /**
+     * @link /users_add?view=1 [GET]
+     * @return void
+     */
+    public function add() {
+        require_once('../views/users_add.php');
+    }
+
+
+    /**
+     * @link /users_delete?view=1 [GET]
+     * @param int $id
+     * @return void
+     */
+    public function exclude(int $id) {
+        require_once('../views/users_delete.php');
+    }
+
+    /**
+     * @link /users_edit?view=1 [GET]
+     * @param int $id
+     * @return void
+     */
+    public function edit(int $id) {
+        require_once('../views/users_edit.php');
+    }
 }
