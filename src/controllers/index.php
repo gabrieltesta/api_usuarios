@@ -20,6 +20,7 @@ $GLOBALS['URL'] = $uri[$indexURI];
 $entityId = ($uri[$indexURI+1] ?? null);
 
 
+//Instanciamento das controllers
 switch($uri[$indexURI]) {
     case 'users':
     case 'users_add':

@@ -146,7 +146,7 @@ class UserController extends BaseController implements APIControllerInterface
 
 
     /**
-     * @link /users_delete?view=1 [GET]
+     * @link /users_delete/{id}?view=1 [GET]
      * @param int $id
      * @return void
      */
@@ -155,7 +155,7 @@ class UserController extends BaseController implements APIControllerInterface
     }
 
     /**
-     * @link /users_edit?view=1 [GET]
+     * @link /users_edit/{id}?view=1 [GET]
      * @param int $id
      * @return void
      */

@@ -1,3 +1,6 @@
+/**
+ * Faz request ajax para pegar listagem de usuários
+ */
 function findAll() {
     let ajax = new XMLHttpRequest();
     let url = './users';
@@ -35,6 +38,11 @@ function findAll() {
     }
 }
 
+/**
+ * Faz request ajax para pegar os detalhes do usuário via id
+ *
+ * @param id
+ */
 function findById(id) {
     let ajax = new XMLHttpRequest();
     let url = './'+id;
@@ -58,6 +66,11 @@ function findById(id) {
     }
 }
 
+/**
+ * Faz o request via ajax para criação do usuário
+ *
+ * @returns {boolean}
+ */
 function create() {
     let name = document.querySelector('#name').value;
     let email = document.querySelector('#email').value;
@@ -103,6 +116,11 @@ function create() {
     }
 }
 
+/**
+ * Faz o request via ajax para exclusão do usuário
+ *
+ * @param id
+ */
 function exclude(id){
     let ajax = new XMLHttpRequest();
     let url = './'+id;
@@ -123,6 +141,12 @@ function exclude(id){
     }
 }
 
+/**
+ * Faz o request via ajax para atualização do usuário
+ *
+ * @param id
+ * @returns {boolean}
+ */
 function update(id) {
     let name = document.querySelector('#name').value;
     let email = document.querySelector('#email').value;
