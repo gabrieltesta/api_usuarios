@@ -7,13 +7,15 @@
 
  - É necessário que a configuração de "mod_rewrite" esteja ativa no servidor.
 	 - Para ativar no XAMPP: 
-		 - C:\xampp>\apache\conf
+		 - C:\xampp\apache\conf
 		 - Retire o comentário da linha `#LoadModule rewrite_module modules/mod_rewrite.so`
 		 - Mude todas as ocorrências de `AllowOverride None` para `AllowOverride All`
+         - Colocar os arquivos deste repositório na raíz da pasta `C:/xampp/htdocs`
 	 - Para ativar no WAMP:
  		 - C:\wamp\bin\apache\Apache2.2.11\conf
 		 - Retire o comentário da linha `#LoadModule rewrite_module modules/mod_rewrite.so`
 		 - Mude todas as ocorrências de `AllowOverride None` para `AllowOverride All`
+         - Colocar os arquivos deste repositório na raiz da pasta `C:/wamp/www`
 
  - Para configuração inicial do banco de dados MySQL:
 	 - A conexão com o banco de dados é feita pelo arquivo .env, e por padrão foram utilizadas as credenciais padrão do MySQL no XAMPP:
