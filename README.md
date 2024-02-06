@@ -53,30 +53,6 @@
 
 </details>
 
-------------------------------------------------------------------------------------------
-<details>
- <summary><code>GET</code> <code><b>/users/{id}</b></code> Retorna os detalhes de um usuário específico.</summary>
-
-##### Parâmetros
-
-> | nome |  tipo     | tipo do dado      | descrição                         |
-> |-------------------|-----------|----------------|-------------------------------------|
-> | `id` |  required | int   | O código primário do registro de usuário        |
-
-##### Responses
-
-> | código HTTP     | content-type                      | response                                                            |
-> |---------------|-----------------------------------|---------------------------------------------------------------------|
-> | `200`         | `application/json;charset=UTF-8`        | String JSON                                                         |
-> | `404`         | `application/json;charset=UTF-8`                | `{"code":"404","message":"Nenhum registro encontrado.", "body": []}`                            |
-
-##### String cURL
-
-> ```javascript
->  curl -X GET -H "Content-Type: application/json" http://localhost/users/1 
->  ```
-</details>
-
 
 ------------------------------------------------------------------------------------------
 <details>
